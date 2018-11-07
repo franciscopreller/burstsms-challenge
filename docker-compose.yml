@@ -12,25 +12,6 @@ services:
     build: ./client
     env_file: docker-compose.env
 
-  sccbroker:
-    labels:
-      - "traefik.enable=false"
-    image: socketcluster/scc-broker:v6.0.1
-    hostname: scc-broker
-    env_file: docker-compose.env
-    depends_on:
-      - sccstate
-
-  sccstate:
-    labels:
-      - "traefik.enable=false"
-    image: socketcluster/scc-state:v6.1.0
-    hostname: scc-state
-    env_file: docker-compose.env
-
-  nats:
-    image: nats
-
   traefik:
     image: traefik
     command: --docker --docker.domain=docker.localhost --logLevel=ERROR --docker.exposedbydefault=false
