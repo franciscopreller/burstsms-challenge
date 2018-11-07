@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "./node_modules/@flamingo/code-quality-tools/eslint-config-flamingo/default.js"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true
+    }
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      "\\.json$"
+    ],
+    "import/resolve": {
+      "extensions": [
+        ".js",
+        ".json"
+      ]
+    }
+  }
+}

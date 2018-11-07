@@ -12,6 +12,23 @@ services:
     build: ./client
     env_file: docker-compose.env
 
+  smsgateway:
+    labels:
+    - "traefik.enable=true"
+    - "traefik.backend=smsgateway"
+    - "traefik.port=80"
+    - "traefik.frontend.rule=PathPrefix:/api/sms"
+    - "traefik.frontend.entryPoints=http"
+    build: ./services/sms
+    env_file: docker-compose.env
+    environment:
+      DEBUG: sms
+      NODE_ENV: development
+    entrypoint: forever
+    command: --plain --spinSleepTime 4000 -w bin/www
+    volumes:
+    - ./services/sms/src:/app/src
+
   traefik:
     image: traefik
     command: --docker --docker.domain=docker.localhost --logLevel=ERROR --docker.exposedbydefault=false
