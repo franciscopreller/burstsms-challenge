@@ -23,6 +23,7 @@ However, it is built with readability, scalability and performance in mind.*__
 - Orchestration: [docker-compose](https://docs.docker.com/compose/)
 - Internal load balancing: [traefik](https://traefik.io/)
 - Service container OS: [node:alpine-11](https://hub.docker.com/_/node/)
+- Web interface container OS: [node:11](https://hub.docker.com/_/node/)
 - Message queues: [nats](https://nats.io/)
 - Websocket: [socketcluster](https://socketcluster.io/#!/)
 - Web interface views: [reactJS](https://reactjs.org/)

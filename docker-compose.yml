@@ -2,6 +2,16 @@ version: "3.0"
 
 services:
 
+  webclient:
+    labels:
+    - "traefik.enable=true"
+    - "traefik.backend=webclient"
+    - "traefik.port=80"
+    - "traefik.frontend.rule=PathPrefix:/"
+    - "traefik.frontend.entryPoints=http"
+    build: ./client
+    env_file: docker-compose.env
+
   sccbroker:
     labels:
       - "traefik.enable=false"
@@ -25,7 +35,7 @@ services:
     image: traefik
     command: --docker --docker.domain=docker.localhost --logLevel=ERROR --docker.exposedbydefault=false
     ports:
-      - "80:80"
+      - "3333:80"
     volumes:
       # Note, the below is incompatible with non unix systems, see: https://github.com/docker/for-win/issues/1829
       - /var/run/docker.sock:/var/run/docker.sock
