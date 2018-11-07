@@ -41,8 +41,10 @@ to install docker and <https://docs.docker.com/compose/install/> for docker-comp
 
 1. Rename `docker-compose.env.sample` to `docker-compose.env`, note that `.env` files
    are listed under `.gitignore` to prevent leaking of environment variables into Github.
-2. Add necessary testing credentials into the env file; `BURSTSMS_KEY` and `BURSTSMS_SECRET`
-3. From the root directory, run the following commands:
+2. Add necessary BurstSMS testing credentials into the env file; `BURSTSMS_KEY` and `BURSTSMS_SECRET`
+3. Add Bitly API token into the env file; `BITLY_ACCESS_TOKEN`.
+   [How to get your Bitly token.](https://dev.bitly.com/v4/#section/HTTP-Basic-Authentication-Flow)
+4. From the root directory, run the following commands:
 ```
 # Linux users will likely require the use of sudo with the below commands
 
@@ -55,7 +57,10 @@ $ docker-compose logs -f
 
 ## Accessing the application
 To access the web application, simply open your favourite browser and navigate
-to: <http://localhost:3333/>
+to: <http://localhost:3333/>, don't be confused by the terminal output which may
+point you towards port 80, that is only the local port it runs in docker. To
+avoid conflicts with computers that have web servers installed, I have used
+Traefik as a reverse proxy to port-forward to 3333 for all services.
 
 ## Notes and observations
 - Containers are replicated by default, this is to demonstrate statelessness and
@@ -66,3 +71,6 @@ to: <http://localhost:3333/>
 - Web interface was created with ReactJS and Redux to demonstrate competence
   with these technologies, as mentioned on the list of technologies used though,
   I have chosen to use a pre-existing boilerplate made by someone else.
+  
+### Issues or Concerns?
+You can get in touch by emailing me! [francisco.preller@gmail.com](mailto:francisco.preller@gmail.com)

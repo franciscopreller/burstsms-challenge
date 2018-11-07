@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const response = { shorten: true };
+    const response = await Bitly.shortenUrl(req.body.url);
     res.json(createResponse.success(response));
   } catch (error) {
     console.error('Error caught on shorten POST / route', error);
