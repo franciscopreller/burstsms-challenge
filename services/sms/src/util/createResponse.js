@@ -4,15 +4,16 @@
 const createResponse = {
   error: error => ({
     error: true,
-    data: {
-      message: error.message,
-      status: error.status,
-    },
+    data: error,
   }),
-  success: data => ({
-    error: false,
-    data,
-  }),
+  success: data => {
+    // Filter out the data, remove the error object which already comes with all responses
+    const { error, ...payload } = data;
+    return {
+      error: false,
+      data: payload,
+    };
+  },
 };
 
 module.exports = createResponse;

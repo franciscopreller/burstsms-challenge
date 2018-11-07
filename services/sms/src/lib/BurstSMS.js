@@ -1,5 +1,6 @@
 const request = require('request-promise-native');
 const querystring = require('querystring');
+const getErrorFromResponse = require('../util/getErrorFromResponse');
 
 const SUCCESS_CODE = 'SUCCESS';
 
@@ -44,7 +45,9 @@ class BurstSMS {
       // Parse the response to JSON
       return JSON.parse(response);
     } catch (error) {
+      const errorObj = getErrorFromResponse(error.message);
       console.error('Could not complete format number request from BurstSMS', error.message);
+      return Promise.reject(errorObj);
     }
   }
 
@@ -80,7 +83,10 @@ class BurstSMS {
       // seconds until we see the message has been delivered
       return JSON.parse(response);
     } catch (error) {
-      console.error('Could not complete send SMS request from BurstSMS', error.message);
+      // Error handling
+      const errorObj = getErrorFromResponse(error.message);
+      console.error('Could not complete send SMS request from BurstSMS', errorObj.code);
+      return Promise.reject(errorObj);
     }
   }
 
@@ -103,7 +109,31 @@ class BurstSMS {
       const response = await request(options);
       return JSON.parse(response);
     } catch (error) {
-      console.error('Could not complete get SMS request from BurstSMS', error.message);
+      // Error handling
+      const errorObj = getErrorFromResponse(error.message);
+      console.error('Could not complete get SMS request from BurstSMS', errorObj.code);
+      return Promise.reject(errorObj);
+    }
+  }
+
+  async getSMSStats({ id }) {
+    try {
+      // Request options
+      const options = {
+        method: 'POST',
+        url: `${this.baseUrl}/get-sms-stats.json`,
+        auth: this.auth,
+        form: {
+          'message_id': id,
+        },
+      };
+      const response = await request(options);
+      return JSON.parse(response);
+    } catch (error) {
+      // Error handling
+      const errorObj = getErrorFromResponse(error.message);
+      console.error('Could not complete get SMS stats request from BurstSMS', error.message);
+      return Promise.reject(errorObj);
     }
   }
 }

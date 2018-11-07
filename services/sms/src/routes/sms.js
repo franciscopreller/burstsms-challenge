@@ -13,7 +13,9 @@ router.get('/:id', async (req, res) => {
     const response = await burst.getSMS({ id: req.params.id });
     res.json(createResponse.success(response));
   } catch (error) {
-    console.error('Error caught on sms GET /:id route')
+    console.error('Error caught on sms GET /:id route', error);
+    res.status(error.status || 500);
+    res.json(createResponse.error(error));
   }
 });
 
@@ -23,6 +25,8 @@ router.post('/', async (req, res) => {
     res.json(createResponse.success(response));
   } catch (error) {
     console.error('Error caught on sms POST / route', error);
+    res.status(error.status || 500);
+    res.json(createResponse.error(error));
   }
 });
 
