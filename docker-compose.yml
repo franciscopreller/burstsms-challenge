@@ -29,6 +29,23 @@ services:
     volumes:
     - ./services/sms/src:/app/src
 
+  bitlygateway:
+    labels:
+    - "traefik.enable=true"
+    - "traefik.backend=bitlygateway"
+    - "traefik.port=80"
+    - "traefik.frontend.rule=PathPrefix:/api/shorten"
+    - "traefik.frontend.entryPoints=http"
+    build: ./services/sms
+    env_file: docker-compose.env
+    environment:
+      DEBUG: bitly
+      NODE_ENV: development
+    entrypoint: forever
+    command: --plain --spinSleepTime 4000 -w bin/www
+    volumes:
+    - ./services/bitly/src:/app/src
+
   traefik:
     image: traefik
     command: --docker --docker.domain=docker.localhost --logLevel=ERROR --docker.exposedbydefault=false
