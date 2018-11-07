@@ -39,8 +39,8 @@ react-redux development, but is minimalistic in nature.
 runtime environment, see <https://docs.docker.com/install/> for instructions on how
 to install docker and <https://docs.docker.com/compose/install/> for docker-compose)*
 
-1. Rename `docker-compose.env.sample` to `docker-compose.env`, note that `docker-compose.yml`
-   is listed under `.gitignore` to prevent leaking of environment variables into Github.
+1. Rename `docker-compose.env.sample` to `docker-compose.env`, note that `.env` files
+   are listed under `.gitignore` to prevent leaking of environment variables into Github.
 2. Add necessary testing credentials into the env file; `BURSTSMS_KEY` and `BURSTSMS_SECRET`
 3. From the root directory, run the following commands:
 ```
