@@ -1,14 +1,29 @@
 const express = require('express');
+const BurstSMS = require('../lib/BurstSMS');
 const createResponse = require('../util/createResponse');
 
 const router = express.Router();
-
-router.get('/:id', (req, res) => {
-  res.json(createResponse.success(req.params));
+const burst = new BurstSMS({
+  apiKey: process.env.BURSTSMS_KEY || '',
+  secret: process.env.BURSTSMS_SECRET || '',
 });
 
-router.post('/', (req, res) => {
-  res.json(req.body);
+router.get('/:id', async (req, res) => {
+  try {
+    const response = await burst.getSMS({ id: req.params.id });
+    res.json(createResponse.success(response));
+  } catch (error) {
+    console.error('Error caught on sms GET /:id route')
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const response = await burst.sendSMS(req.body);
+    res.json(createResponse.success(response));
+  } catch (error) {
+    console.error('Error caught on sms POST / route', error);
+  }
 });
 
 module.exports = router;
