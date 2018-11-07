@@ -1,23 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Banner from './images/banner.jpg';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import Typography from '@material-ui/core/Typography';
 import './style.scss';
 
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div className="header">
-        <a href="https://twitter.com/flexdinesh">
-          <img src={Banner} alt="react-redux-boilerplate - Logo" />
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" color="inherit">
+              Welcome to the Challenge
+            </Typography>
+            <IconButton color="inherit">
+              <AccountIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <a href="https://support.burstsms.com/hc/en-us/categories/200154016-API-Documentation">
+          <img className="splash" src="//theme.zdassets.com/theme_assets/90242/ee59b76d5a2f9723e4e36e308251611564c2820c.png" alt="BurstSMS logo" />
         </a>
-        <div className="nav-bar">
-          <Link className="router-link" to="/">
-            Home
-          </Link>
-          <Link className="router-link" to="/features">
-            Features
-          </Link>
-        </div>
       </div>
     );
   }

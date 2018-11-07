@@ -4,6 +4,13 @@ footer {
   padding: 3em 0;
   border-top: 1px solid #666;
 
+  .inner-footer {
+    max-width: calc(768px + 16px * 2);
+    text-align: center;
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
   a {
     color: #41addd;
   
