@@ -46,10 +46,13 @@ to install docker and <https://docs.docker.com/compose/install/> for docker-comp
    [How to get your Bitly token.](https://dev.bitly.com/v4/#section/HTTP-Basic-Authentication-Flow)
 4. From the root directory, run the following commands:
 ```
-# Linux users will likely require the use of sudo with the below commands
+# NOTE: Linux users will likely require the use of sudo with the below commands
 
 # To start all services
-$ docker-compose up -d --build
+$ docker-compose up -d --build --scale webclient=2 --scale=smsgateway=2 --scale=bitlygateway=3
+
+# Alternatively, I've included an npm script to do exactly the same as the above
+$ npm start
 
 # To watch all logs
 $ docker-compose logs -f
@@ -63,9 +66,9 @@ avoid conflicts with computers that have web servers installed, I have used
 Traefik as a reverse proxy to port-forward to 3333 for all services.
 
 ## Notes and observations
-- Containers are replicated by default, this is to demonstrate statelessness and
-  the ability to horizontally scale any of the components, to see container
-  replication, examine the `docker-compose.yml` file on the root.
+- Containers are designed to be stateless, and thus, horizontally available for
+  scaling by default, the replicas can be controlled with the `--scale` flag
+  during the `docker-compose up` command issue.
 - The module system used on all server side services is `CommonJS`, while the
   web interface uses `Native Ecmascript` modules using webpack as a transpiler.
 - Web interface was created with ReactJS and Redux to demonstrate competence

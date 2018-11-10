@@ -29,6 +29,7 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll"
   },
+  "homepage": "https://github.com/franciscopreller/burstsms-challenge#readme",
   "dependencies": {
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",

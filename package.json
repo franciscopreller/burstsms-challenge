@@ -1,0 +1,20 @@
+{
+  "name": "burstsms-challenge",
+  "version": "1.0.0",
+  "description": "An engineering challenge for BurstSMS Technologists",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "docker-compose up -d --build --scale webclient=2 --scale=smsgateway=2 --scale=bitlygateway=3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franciscopreller/burstsms-challenge.git"
+  },
+  "author": "Francisco Preller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franciscopreller/burstsms-challenge/issues"
+  },
+  "homepage": "https://github.com/franciscopreller/burstsms-challenge#readme"
+}
