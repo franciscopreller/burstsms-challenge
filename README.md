@@ -68,7 +68,7 @@ Traefik as a reverse proxy to port-forward to 3333 for all services.
 ## Accessing traefik web UI
 Traefik includes a control panel where statistics and information about the running
 containers can be analysed and debugged. To access the Traefik web UI simply
-navigate your browser to: <htto://localhost:8888>
+navigate your browser to: <http://localhost:8888>
 
 The web UI offers good insight and is proof of the container replication
 being used, here is a screenshot of what it looks like:
