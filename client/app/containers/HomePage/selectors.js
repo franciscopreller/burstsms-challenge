@@ -7,7 +7,13 @@ const makeSelectUsername = () => createSelector(
   (homeState) => homeState.get('username')
 );
 
+const makeFormSubmitting = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('formSubmitting')
+);
+
 export {
   selectHome,
   makeSelectUsername,
+  makeFormSubmitting,
 };
