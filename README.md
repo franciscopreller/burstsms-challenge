@@ -72,7 +72,7 @@ navigate your browser to: <htto://localhost:8888>
 
 The web UI offers good insight and is proof of the container replication
 being used, here is a screenshot of what it looks like:
-![Traefik Web UI](https://imgur.com/a/v10aJEv)
+![Traefik Web UI](https://i.imgur.com/nHVZJQz.png)
 
 ## Notes and observations
 - Containers are designed to be stateless, and thus, horizontally available for
