@@ -65,6 +65,15 @@ point you towards port 80, that is only the local port it runs in docker. To
 avoid conflicts with computers that have web servers installed, I have used
 Traefik as a reverse proxy to port-forward to 3333 for all services.
 
+## Accessing traefik web UI
+Traefik includes a control panel where statistics and information about the running
+containers can be analysed and debugged. To access the Traefik web UI simply
+navigate your browser to: <htto://localhost:8888>
+
+The web UI offers good insight and is proof of the container replication
+being used, here is a screenshot of what it looks like:
+![Traefik Web UI](https://imgur.com/a/v10aJEv)
+
 ## Notes and observations
 - Containers are designed to be stateless, and thus, horizontally available for
   scaling by default, the replicas can be controlled with the `--scale` flag
