@@ -9,6 +9,9 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
   paper: {
@@ -76,7 +79,22 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           message: this.state.smsForm.message.value,
           from: this.props.username,
         };
-        this.props.sendSMS(payload);
+        const callback = () => {
+          this.setState({
+            smsForm: {
+              sending: false,
+              number: {
+                value: '',
+                errorText: '',
+              },
+              message: {
+                value: '',
+                errorText: '',
+              },
+            },
+          });
+        };
+        this.props.sendSMS(payload, callback);
       }
     };
   }
@@ -171,6 +189,29 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <title>Home</title>
           <meta name="description" content="A React.js BurstSMS Interface" />
         </Helmet>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.props.formSubmitted}
+          autoHideDuration={6000}
+          onClose={this.props.clearSnackbar}
+          ContentProps={{
+            'aria-describedby': 'message_id',
+          }}
+          message={<span id="message_id">Message Sent! - {this.props.formSubmitted}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.props.clearSnackbar}
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
         <section>
           <Paper className={classes.paper}>
             <form onSubmit={this.onFormSubmit()}>

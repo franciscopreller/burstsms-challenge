@@ -60,8 +60,10 @@ export function* requestSendSMS(action) {
       number: action.payload.number,
       from: action.payload.from,
       message,
+      countryCode: 'AU', // hard coded for demo
     });
-    yield put(sendSMSSuccess(response.data.message_id));
+    action.callback();
+    yield put(sendSMSSuccess(response.message_id));
   } catch (error) {
     const errorMessage = 'Could not request SMS sent API';
     console.error(errorMessage, error);

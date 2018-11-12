@@ -12,8 +12,20 @@ const makeFormSubmitting = () => createSelector(
   (homeState) => homeState.get('formSubmitting')
 );
 
+const makeFormSubmitted = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('lastMessageId')
+);
+
+const makeFormError = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('formError')
+);
+
 export {
   selectHome,
   makeSelectUsername,
   makeFormSubmitting,
+  makeFormSubmitted,
+  makeFormError,
 };

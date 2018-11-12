@@ -1,8 +1,9 @@
 import {
   CHANGE_USERNAME,
   SEND_SMS,
-  SEND_SMS_SUCESS,
+  SEND_SMS_SUCCESS,
   SEND_SMS_ERROR,
+  CLEAR_LAST_MESSAGE,
 } from './constants';
 
 /**
@@ -17,7 +18,7 @@ export function changeUsername(name) {
   };
 }
 
-export function sendSMS(number, from, message) {
+export function sendSMS({ number, from, message }, callback) {
   return {
     type: SEND_SMS,
     payload: {
@@ -25,12 +26,13 @@ export function sendSMS(number, from, message) {
       from,
       message,
     },
+    callback,
   };
 }
 
 export function sendSMSSuccess(messageId) {
   return {
-    type: SEND_SMS,
+    type: SEND_SMS_SUCCESS,
     payload: {
       messageId,
     },
@@ -44,4 +46,10 @@ export function sendSMSError(error) {
       error,
     },
   };
+}
+
+export function clearLastMessageId() {
+  return {
+    type: CLEAR_LAST_MESSAGE,
+  }
 }
