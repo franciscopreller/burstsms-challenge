@@ -83,6 +83,9 @@ being used, here is a screenshot of what it looks like:
 - The server-side validations are lackluster at best and on a real-world project
   would be cause for concern. This is a known issue and happy to expand on the
   importance of server-side validation as opposed to mostly client-side validation.
+- Testing is lackluster but i did try to include some as examples on the front
+  end; again server-side unit testing and test driven development would have
+  been a choice of mine, given more time on the challenge.
 - Containers are designed to be stateless, and thus, horizontally available for
   scaling by default, the replicas can be controlled with the `--scale` flag
   during the `docker-compose up` command issue.

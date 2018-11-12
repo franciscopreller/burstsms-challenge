@@ -51,5 +51,5 @@ export function sendSMSError(error) {
 export function clearLastMessageId() {
   return {
     type: CLEAR_LAST_MESSAGE,
-  }
+  };
 }

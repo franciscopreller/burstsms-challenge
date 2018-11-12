@@ -181,6 +181,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       username,
       sending,
       classes,
+      loading,
     } = this.props;
 
     return (
@@ -228,7 +229,8 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                       color="primary"
                       type="submit"
                       onClick={this.props.unsetUsername}
-                      fullWidth>
+                      fullWidth
+                    >
                       Logout
                     </Button>
                   )}
@@ -241,70 +243,71 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                 }
               </Typography>
               <Divider className={classes.divider} />
-                {(username) ? (
-                  // If user state logged in, show SMS send form
-                  <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        id="number"
-                        name="number"
-                        label="Enter a valid Australian mobile number. eg; 0430 123 456"
-                        fullWidth
-                        onChange={this.onNumberChange()}
-                        error={this.state.smsForm.number.errorText.length !== 0}
-                        helperText={this.state.smsForm.number.errorText}
-                        value={this.state.smsForm.number.value}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        id="message"
-                        name="message"
-                        label="Enter message; any links in the text will be converted into bitly before form submission"
-                        multiline
-                        fullWidth
-                        onChange={this.onMessageChange()}
-                        error={this.state.smsForm.message.errorText.length !== 0}
-                        helperText={this.state.smsForm.message.errorText}
-                        value={this.state.smsForm.message.value}
-                      />
-                      <div className={classes.messageCount}>
-                        {this.state.smsForm.message.value.length} / {MAX_MESSAGE_LENGTH}
-                      </div>
-                    </Grid>
-                  </Grid>
-                ) : (
-                  // Otherwise ask the user to log in
-                  <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        id="username"
-                        name="username"
-                        label="Enter username"
-                        fullWidth
-                        onChange={this.onUsernameChange()}
-                        error={this.state.usernameForm.name.errorText.length !== 0}
-                        helperText={this.state.usernameForm.name.errorText}
-                        value={this.state.usernameForm.name.value}
-                      />
-                    </Grid>
-                  </Grid>
-                )}
+              {(username) ? (
+                // If user state logged in, show SMS send form
                 <Grid container spacing={24}>
-                  <Grid item xs={6} />
-                  <Grid item xs={6}>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      type="submit"
-                      fullWidth>
-                      {(sending) ? <CircularProgress size={18} /> : 'Submit'}
-                    </Button>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="number"
+                      name="number"
+                      label="Enter a valid Australian mobile number. eg; 0430 123 456"
+                      fullWidth
+                      onChange={this.onNumberChange()}
+                      error={this.state.smsForm.number.errorText.length !== 0}
+                      helperText={this.state.smsForm.number.errorText}
+                      value={this.state.smsForm.number.value}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="message"
+                      name="message"
+                      label="Enter message; any links in the text will be converted into bitly before form submission"
+                      multiline
+                      fullWidth
+                      onChange={this.onMessageChange()}
+                      error={this.state.smsForm.message.errorText.length !== 0}
+                      helperText={this.state.smsForm.message.errorText}
+                      value={this.state.smsForm.message.value}
+                    />
+                    <div className={classes.messageCount}>
+                      {this.state.smsForm.message.value.length} / {MAX_MESSAGE_LENGTH}
+                    </div>
                   </Grid>
                 </Grid>
+              ) : (
+                // Otherwise ask the user to log in
+                <Grid container spacing={24}>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id="username"
+                      name="username"
+                      label="Enter username"
+                      fullWidth
+                      onChange={this.onUsernameChange()}
+                      error={this.state.usernameForm.name.errorText.length !== 0}
+                      helperText={this.state.usernameForm.name.errorText}
+                      value={this.state.usernameForm.name.value}
+                    />
+                  </Grid>
+                </Grid>
+              )}
+              <Grid container spacing={24}>
+                <Grid item xs={6} />
+                <Grid item xs={6}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    type="submit"
+                    fullWidth
+                  >
+                    {(sending || loading) ? <CircularProgress size={18} /> : 'Submit'}
+                  </Button>
+                </Grid>
+              </Grid>
             </form>
           </Paper>
         </section>
@@ -315,6 +318,14 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
 HomePage.propTypes = {
   username: PropTypes.string,
+  changeUsername: PropTypes.func.isRequired,
+  unsetUsername: PropTypes.func.isRequired,
+  sendSMS: PropTypes.func.isRequired,
+  clearSnackbar: PropTypes.func.isRequired,
+  formSubmitted: PropTypes.bool,
+  loading: PropTypes.bool,
+  sending: PropTypes.bool,
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(HomePage);

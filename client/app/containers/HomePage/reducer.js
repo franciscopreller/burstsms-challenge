@@ -27,7 +27,6 @@ function homeReducer(state = initialState, action) {
         .set('formSubmitting', true)
         .set('formError', false);
     case SEND_SMS_SUCCESS:
-      console.log('send sms success', action.payload);
       return state
         .set('lastMessageId', action.payload.messageId)
         .set('formSubmitting', false)

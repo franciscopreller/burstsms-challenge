@@ -1,12 +1,11 @@
-import { put, select, all, takeLatest } from 'redux-saga/effects';
+import { put, all, takeLatest } from 'redux-saga/effects';
 import * as linkify from 'linkifyjs';
-
 import request from 'utils/request';
+
 import {
   sendSMSSuccess,
   sendSMSError,
 } from './actions';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
 import { SEND_SMS } from './constants';
 
 // Helpers
@@ -19,10 +18,9 @@ async function getBitlyLinks(links) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
-    body: JSON.stringify({ urls: links.map(l => l.href) }),
+    body: JSON.stringify({ urls: links.map((l) => l.href) }),
   };
-  return await request(requestURL, options)
-    .then(resp => resp.data);
+  return request(requestURL, options).then((resp) => resp.data);
 }
 
 async function postSendSMSAPI(payload) {
@@ -36,8 +34,7 @@ async function postSendSMSAPI(payload) {
     },
     body: JSON.stringify(payload),
   };
-  return await request(requestURL, options)
-    .then(resp => resp.data);
+  return request(requestURL, options).then((resp) => resp.data);
 }
 
 export function* requestSendSMS(action) {
