@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
   paper: {
@@ -23,7 +24,8 @@ const styles = {
   messageCount: {
     textAlign: 'right',
     fontSize: 10,
-    color: '#ccc',
+    marginTop: 5,
+    color: '#666',
   },
 };
 
@@ -40,6 +42,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         },
       },
       smsForm: {
+        sending: false,
         number: {
           value: '',
           errorText: '',
@@ -73,7 +76,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           message: this.state.smsForm.message.value,
           from: this.props.username,
         };
-        console.log('Send SMS with payload:', payload);
+        this.props.sendSMS(payload);
       }
     };
   }
@@ -131,20 +134,19 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
   onUsernameChange() {
     return (evt) => {
+      // Set the components internal state for the username form
+      this.setState({
+        usernameForm: Object.assign({}, this.state.usernameForm, {
+          name: Object.assign({}, this.state.usernameForm.name, {
+            value: evt.target.value,
+            errorText: '',
+          }),
+        }),
+      });
       // Check validation
       const match = /^([a-zA-Z0-9]){1,11}$/;
       const regex = new RegExp(match);
-      if (regex.test(evt.target.value)) {
-        // Set the components internal state for the username form
-        this.setState({
-          usernameForm: Object.assign({}, this.state.usernameForm, {
-            name: Object.assign({}, this.state.usernameForm.name, {
-              value: evt.target.value,
-              errorText: '',
-            }),
-          }),
-        });
-      } else {
+      if (!regex.test(evt.target.value)) {
         this.setState({
           usernameForm: Object.assign({}, this.state.usernameForm, {
             name: Object.assign({}, this.state.usernameForm.name, {
@@ -157,7 +159,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { username, classes } = this.props;
+    const {
+      username,
+      sending,
+      classes,
+    } = this.props;
+
     return (
       <article>
         <Helmet>
@@ -201,8 +208,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                         required
                         id="number"
                         name="number"
-                        label="Enter a valid Australian mobile number. eg: 0430 123 456"
-                        variant="outlined"
+                        label="Enter a valid Australian mobile number. eg; 0430 123 456"
                         fullWidth
                         onChange={this.onNumberChange()}
                         error={this.state.smsForm.number.errorText.length !== 0}
@@ -215,8 +221,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                         required
                         id="message"
                         name="message"
-                        label="Enter your message. Any links in the text will be converted into Bitly."
-                        variant="outlined"
+                        label="Enter message; any links in the text will be converted into bitly before form submission"
                         multiline
                         fullWidth
                         onChange={this.onMessageChange()}
@@ -255,7 +260,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
                       color="primary"
                       type="submit"
                       fullWidth>
-                      Submit
+                      {(sending) ? <CircularProgress size={18} /> : 'Submit'}
                     </Button>
                   </Grid>
                 </Grid>
