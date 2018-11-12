@@ -75,6 +75,14 @@ being used, here is a screenshot of what it looks like:
 ![Traefik Web UI](https://i.imgur.com/nHVZJQz.png)
 
 ## Notes and observations
+- The entire challenge took about 12-14 hours all up, and also some of the scope
+  was de-scoped as I took on too much initially (this was fun!).
+- There are still some bugs lurking on the client, one known issue is to do with
+  the client-side validations of the fields, where clearing the field completely
+  can be difficult.
+- The server-side validations are lackluster at best and on a real-world project
+  would be cause for concern. This is a known issue and happy to expand on the
+  importance of server-side validation as opposed to mostly client-side validation.
 - Containers are designed to be stateless, and thus, horizontally available for
   scaling by default, the replicas can be controlled with the `--scale` flag
   during the `docker-compose up` command issue.
